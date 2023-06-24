@@ -8,7 +8,7 @@ export default function Card(props) {
 
     const style = {
         backgroundImage: `url(presidents/${props.presidentUrlName}.jpg)`,
-
+        color: 'red',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',        
     };

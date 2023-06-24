@@ -5,23 +5,14 @@ import Card from './Card' //this pulls in the Card .css
 import shuffle from './utils'
 import IMAGES from './data'
 
-// TODO
-//     1)Add win condition that displays 'you win'
-//     2)remove images in src findByPlaceholderText
-
-
 export default function Main(props) {
     //init array
     function createDeck() {
         let initCards = [];
-        // for (let i = 0; i < 12; i++) {
-        //     const card = { num: i };
-        //     initCards.push(card);
-        // }
 
         IMAGES.forEach(img => {
-            initCards.push(img)
-        })
+            initCards.push(img);
+        });
         return shuffle(initCards);
     };
 
@@ -39,8 +30,8 @@ export default function Main(props) {
 
     function addToPickedArray(num) { setPickedCards( prev => ([...prev, num])); };
 
+    
     function clickUpdate(e) {
-        
         const value = e.target.dataset.value;
 
         //to addres async issues:
@@ -49,35 +40,29 @@ export default function Main(props) {
         
         shuffleAllChards(); //updates state
         
+        //LOSE CONDITION
         if(pickedCards.includes(value)) {
             props.updateCurrentScore(0);
             setPickedCards([]); //clear 'pickedCards' for a new game
             return;
         } //reset game
 
-        if(currentScore != 12) {
-            addToPickedArray(value)
-        } else {
-            console.log('score is 12')
-        }
-        
-        
-        console.log('pickedCards:', [...pickedCards, value])
 
-        props.incrementCurrentScore();
+        //CONTINUE CONDITION
         currentScore++;
+        props.updateCurrentScore( currentScore)
+        addToPickedArray(value);
 
         if (currentScore > highestScore) {
-            console.log('yee')
             props.updateHighestScore( currentScore);
         } 
-        else {
-            console.log('currentScore:', currentScore)
-            console.log('highestScore:', highestScore)
+
+        //WIN CONDITION
+        if(currentScore === 12) {
+            props.updateCurrentScore(0);
+            setPickedCards([]); //clear 'pickedCards' for a new game
+            return;            
         }
-
-
-
     };
 
 
