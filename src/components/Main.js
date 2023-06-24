@@ -1,29 +1,37 @@
-import shuffle from './utils'
-
 import React from 'react'
 import Card from './Card' //this pulls in the Card .css
 
 
-export default function Main(props) {
+import shuffle from './utils'
+import IMAGES from './data'
 
+// TODO
+//     1)Add win condition that displays 'you win'
+//     2)remove images in src findByPlaceholderText
+
+
+export default function Main(props) {
     //init array
     function createDeck() {
-        let initCards = []
-        for (let i = 0; i < 12; i++) {
-            const card = { num: i };
-            initCards.push(card);
-        }
+        let initCards = [];
+        // for (let i = 0; i < 12; i++) {
+        //     const card = { num: i };
+        //     initCards.push(card);
+        // }
 
+        IMAGES.forEach(img => {
+            initCards.push(img)
+        })
         return shuffle(initCards);
-    }
+    };
+
 
     //shuffle but w/ STATE
     function shuffleAllChards() {
         setAllCards(cards => {
             return shuffle(cards);
-        })
-    }
-
+        });
+    };
 
 
     const [allCards, setAllCards] = React.useState(createDeck());
@@ -71,9 +79,7 @@ export default function Main(props) {
 
 
     };
-// function upit(){
-    
-// }
+
 
     return(
         
@@ -83,21 +89,13 @@ export default function Main(props) {
             </h1>                                                           
             {allCards.map((card) => (
                 <Card 
-                    key={card.num}                    
-                    num={card.num}
-                    handleClick={clickUpdate}                    
+                    key={card.id}                    
+                    num={card.id}
+                    handleClick={clickUpdate}
+                    presidentUrlName={card.urlInfo}                    
                 />
-
     
             ))}
-                
-
-                <button
-                    onClick={props.incrementCurrentScore}
-                >
-                    update score
-                </button>
-
         <hr />    
         </div>
     )
