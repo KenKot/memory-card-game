@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from './Card' //this pulls in the Card .css
-
+import '../styles/Main.css'
 
 import shuffle from './utils'
 import IMAGES from './data'
@@ -68,10 +68,7 @@ export default function Main(props) {
 
     return(
         
-        <div>
-            <h1>
-                Memory Main!
-            </h1>                                                           
+        <div class="container">                                          
             {allCards.map((card) => (
                 <Card 
                     key={card.id}                    
@@ -81,7 +78,7 @@ export default function Main(props) {
                 />
     
             ))}
-        <hr />    
+        {/* <hr />     */}
         </div>
     )
 }
